@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopiousLMS - Training. Abundant. Simple.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: white;
+            color: #1a1a1a;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Header */
+        header {
+            background: #1a1a1a;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        
+        .copious-logo {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #8b0000, #4d0000);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(139,0,0,0.4);
+        }
+        
+        .logo-square {
+            width: 38px;
+            height: 38px;
+            border: 2px solid #d4af37;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .logo-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: #d4af37;
+        }
+        
+        .logo-dot.center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            box-shadow: 0 0 15px rgba(255,0,0,0.8);
+            z-index: 2;
+        }
+        
+        .logo-dot.top {
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 7px;
+            height: 7px;
+        }
+        
+        .logo-dot.bottom-left {
+            bottom: 4px;
+            left: 4px;
+            width: 7px;
+            height: 7px;
+        }
+        
+        .logo-dot.bottom-right {
+            bottom: 4px;
+            right: 4px;
+            width: 7px;
+            height: 7px;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+        
+        nav a:hover {
+            color: #d4af37;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn-login {
+            padding: 8px 20px;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: white;
+            color: #1a1a1a;
+        }
+        
+        .btn-signup {
+            padding: 8px 20px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-signup:hover {
+            background: #c29d2f;
+        }
+        
+        /* Beta Status Bar */
+        .beta-status {
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .beta-spots {
+            font-size: 20px;
+            color: #8b0000;
+        }
+        
+        /* Chronicle Impact Section */
+        .chronicle-impact {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .impact-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #d4af37;
+        }
+        
+        .impact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .impact-card {
+            padding: 30px;
+            background: rgba(139,0,0,0.2);
+            border: 2px solid #8b0000;
+            border-radius: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .impact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(139,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(139,0,0,0.4);
+        }
+        
+        .impact-amount {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+        
+        .impact-label {
+            font-size: 20px;
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+        
+        .impact-description {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #8b0000, #4d0000);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #8b0000, #4d0000);
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(139,0,0,0.6);
+        }
+        
+        .hero-logo-square {
+            width: 90px;
+            height: 90px;
+            border: 3px solid #d4af37;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .hero-logo-dot {
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .hero-logo-dot.center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: #ff0000;
+            box-shadow: 0 0 20px rgba(255,0,0,0.8);
+            z-index: 2;
+        }
+        
+        .hero-logo-dot.top {
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #d4af37;
+        }
+        
+        .hero-logo-dot.bottom-left {
+            bottom: 8%;
+            left: 12%;
+            width: 12px;
+            height: 12px;
+            background: #d4af37;
+        }
+        
+        .hero-logo-dot.bottom-right {
+            bottom: 8%;
+            right: 12%;
+            width: 12px;
+            height: 12px;
+            background: #d4af37;
+        }
+        
+        h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            color: #d4af37;
+            margin-bottom: 30px;
+        }
+        
+        .hero-text {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: #d4af37;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212,175,55,0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #8b0000;
+        }
+        
+        /* BYOLLM Section */
+        .byollm-section {
+            padding: 80px 20px;
+            background: #f8f8f8;
+        }
+        
+        .byollm-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .byollm-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .byollm-title {
+            font-size: 42px;
+            color: #8b0000;
+            margin-bottom: 20px;
+        }
+        
+        .byollm-subtitle {
+            font-size: 24px;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .byollm-description {
+            font-size: 18px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .byollm-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .byollm-card {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .byollm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .byollm-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .byollm-card h3 {
+            font-size: 24px;
+            color: #8b0000;
+            margin-bottom: 15px;
+        }
+        
+        .byollm-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Stats */
+        .stats {
+            padding: 60px 20px;
+            background: white;
+        }
+        
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #8b0000;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+        
+        /* Modules */
+        .modules {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .module-card {
+            padding: 40px;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .module-card.learn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .module-card.create {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        
+        .module-card.connect {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .module-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .module-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .module-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .module-card li {
+            margin-bottom: 10px;
+        }
+        
+        .module-card li:before {
+            content: "✓ ";
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .footer-logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #8b0000, #4d0000);
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-logo-square {
+            width: 45px;
+            height: 45px;
+            border: 2.5px solid #d4af37;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .footer-logo-dot {
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .footer-logo-dot.center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            box-shadow: 0 0 15px rgba(255,0,0,0.8);
+            z-index: 2;
+        }
+        
+        .footer-logo-dot.top {
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+        }
+        
+        .footer-logo-dot.bottom-left {
+            bottom: 5px;
+            left: 5px;
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+        }
+        
+        .footer-logo-dot.bottom-right {
+            bottom: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+        }
+        
+        .footer-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .footer-tagline {
+            color: #d4af37;
+            margin: 10px 0 30px;
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #d4af37;
+        }
+        
+        .footer-info {
+            font-size: 14px;
+            color: #999;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .impact-grid,
+            .stats-grid,
+            .modules-grid,
+            .byollm-features {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .header-actions {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-section" onclick="showPage('home')">
+                <div class="copious-logo">
+                    <div class="logo-square">
+                        <div class="logo-dot center"></div>
+                        <div class="logo-dot top"></div>
+                        <div class="logo-dot bottom-left"></div>
+                        <div class="logo-dot bottom-right"></div>
+                    </div>
+                </div>
+                <div class="logo-text">CopiousLMS</div>
+            </div>
+            <nav>
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('product')">Product</a>
+                <a onclick="showPage('pricing')">Pricing</a>
+                <a onclick="showPage('chronicles')">Chronicles</a>
+                <a onclick="showPage('about')">About</a>
+                <a onclick="showPage('contact')">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-login" onclick="window.open('copiouslms_production.html', '_blank')">Login</button>
+                <button class="btn-signup" onclick="showPage('beta')">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Beta Status Bar -->
+        <div class="beta-status">
+            🔥 Beta Program: <span class="beta-spots">23 of 50</span> spots claimed | Launching November 2025 | <strong>75% off Year 1 + 25% lifetime discount</strong>
+        </div>
+
+        <!-- Chronicle Impact Section -->
+        <div class="chronicle-impact">
+            <h2 class="impact-title">The Real Cost of Inadequate Training</h2>
+            <p style="color: #999; font-size: 18px; margin-bottom: 40px;">Seven true stories that will change how you think about training forever</p>
+            <div class="impact-grid">
+                <div class="impact-card" onclick="showPage('chronicles')">
+                    <div class="impact-amount">$3.2M</div>
+                    <div class="impact-label">First Hour Accident</div>
+                    <div class="impact-description">David's ankle shattered because no one mentioned the dock plate gap</div>
+                </div>
+                <div class="impact-card" onclick="showPage('chronicles')">
+                    <div class="impact-amount">$847K</div>
+                    <div class="impact-label">Failed Reorganization</div>
+                    <div class="impact-description">34% turnover when change management training was skipped</div>
+                </div>
+                <div class="impact-card" onclick="showPage('chronicles')">
+                    <div class="impact-amount">$380K</div>
+                    <div class="impact-label">Experience Isn't Enough</div>
+                    <div class="impact-description">15 years experience, 3 minutes of skipped training</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-logo">
+                <div class="hero-logo-square">
+                    <div class="hero-logo-dot center"></div>
+                    <div class="hero-logo-dot top"></div>
+                    <div class="hero-logo-dot bottom-left"></div>
+                    <div class="hero-logo-dot bottom-right"></div>
+                </div>
+            </div>
+
+            <h1>CopiousLMS</h1>
+            <div class="tagline">Training. Abundant. Simple.</div>
+            <p class="hero-text">
+                The all-in-one corporate training platform that makes workplace training abundant, not scarce. Learn, Create, Connect—all powered by YOUR AI with BYOLLM technology.
+            </p>
+            <button class="btn" onclick="showPage('beta')">Join Beta Program</button>
+            <button class="btn btn-secondary" onclick="showPage('chronicles')">Read The Chronicles</button>
+        </div>
+
+        <!-- BYOLLM Section -->
+        <div class="byollm-section">
+            <div class="byollm-container">
+                <div class="byollm-header">
+                    <h2 class="byollm-title">BYOLLM: Bring Your Own LLM</h2>
+                    <h3 class="byollm-subtitle">Your AI. Your Control. Your Data.</h3>
+                    <p class="byollm-description">
+                        Revolutionary technology that lets you use YOUR preferred AI model—GPT-4, Claude, Gemini, or your proprietary system. Complete data sovereignty. No vendor lock-in. Total control over your training intelligence.
+                    </p>
+                </div>
+                <div class="byollm-features">
+                    <div class="byollm-card">
+                        <div class="byollm-icon">🔒</div>
+                        <h3>Data Sovereignty</h3>
+                        <p>Your training data never leaves your control. Use your own AI infrastructure or ours. Complete PIPEDA compliance.</p>
+                    </div>
+                    <div class="byollm-card">
+                        <div class="byollm-icon">🤖</div>
+                        <h3>Model Freedom</h3>
+                        <p>Switch between AI models anytime. Use GPT-4 for scenarios, Claude for analysis, or your custom model.</p>
+                    </div>
+                    <div class="byollm-card">
+                        <div class="byollm-icon">⚡</div>
+                        <h3>Zero Lock-In</h3>
+                        <p>Export everything. Change models. Keep your data. True platform independence that saves $500K-$2M.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Integrated Modules</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Beta Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Guarantee</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modules -->
+        <div class="modules">
+            <h2 class="section-title">Three Modules. One Platform. Infinite Possibilities.</h2>
+            <div class="modules-grid">
+                <div class="module-card learn">
+                    <h3>📚 Learn</h3>
+                    <p>AI-powered training scenarios that adapt to your team. BYOLLM support means you control the intelligence.</p>
+                    <ul>
+                        <li>Interactive AI scenarios</li>
+                        <li>Real-time roleplay training</li>
+                        <li>8-second certifications</li>
+                        <li>Compliance tracking</li>
+                        <li>Mobile-friendly access</li>
+                    </ul>
+                </div>
+
+                <div class="module-card create">
+                    <h3>✏️ Create</h3>
+                    <p>Auto-generate certificates, policies, and reports in seconds. No more manual document creation.</p>
+                    <ul>
+                        <li>Instant certificates</li>
+                        <li>WSIB/PIPEDA policies</li>
+                        <li>Custom branding</li>
+                        <li>Bulk creation tools</li>
+                        <li>Blockchain verification (CBTA)</li>
+                    </ul>
+                </div>
+
+                <div class="module-card connect">
+                    <h3>👥 Connect</h3>
+                    <p>Smart announcements and messaging that keep everyone informed. Multi-channel, automated, effective.</p>
+                    <ul>
+                        <li>Multi-channel messaging</li>
+                        <li>Automated reminders</li>
+                        <li>Team engagement tracking</li>
+                        <li>Analytics dashboard</li>
+                        <li>Real-time notifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div style="padding: 80px 20px; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); text-align: center; color: white;">
+            <h2 style="font-size: 42px; margin-bottom: 20px;">Ready to Make Training Abundant?</h2>
+            <p style="font-size: 18px; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; color: #999;">
+                Join 23 companies already transforming their training. Beta spots closing November 30.
+            </p>
+            <button class="btn" onclick="showPage('beta')">Apply for Beta Access</button>
+            <button class="btn btn-secondary" onclick="showPage('pricing')">View Pricing</button>
+        </div>
+    </div>
+
+    <!-- CHRONICLES PAGE -->
+    <div id="chronicles" class="page">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 80px 20px;">
+            <h1 style="text-align: center; font-size: 48px; margin-bottom: 20px;">The Copious Community Chronicles</h1>
+            <p style="text-align: center; font-size: 20px; color: #666; max-width: 800px; margin: 0 auto 60px; line-height: 1.8;">
+                Real workplace tragedies. Real costs. Real lessons. Seven stories that will change how you think about training forever.
+            </p>
+
+            <div style="display: grid; gap: 30px;">
+                <div style="padding: 40px; background: linear-gradient(to right, #fee2e2, white); border-left: 5px solid #8b0000; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <div style="display: inline-block; background: #8b0000; color: #d4af37; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 1</div>
+                            <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">The First Hour</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 32px; font-weight: bold; color: #8b0000;">$3.2M</div>
+                            <div style="font-size: 14px; color: #666;">Total Cost</div>
+                        </div>
+                    </div>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        David Chen arrived at the Edmonton warehouse at 6:00 AM sharp. No safety orientation. No warning about the dock plate gap. 47 minutes later, his ankle shattered in four places.
+                    </p>
+                    <p style="color: #8b0000; font-weight: 600; margin-bottom: 20px;">
+                        40% of workplace accidents occur in the worker's first year. 8% happen on day one.
+                    </p>
+                    <button class="btn" onclick="showPage('day1')">Read Full Chronicle →</button>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #fef3c7, white); border-left: 5px solid #d97706; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <div style="display: inline-block; background: #d97706; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 2</div>
+                            <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">The $847K Reorganization</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 32px; font-weight: bold; color: #d97706;">$847K</div>
+                            <div style="font-size: 14px; color: #666;">90-Day Loss</div>
+                        </div>
+                    </div>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        Jennifer Martinez opened a company-wide email at 8:47 AM. After 12 years, her role was "realigned." No call. No preparation. 34% turnover followed.
+                    </p>
+                    <p style="color: #d97706; font-weight: 600; margin-bottom: 20px;">
+                        Cost of change management training: $4,200. Cost without it: $847,000.
+                    </p>
+                    <button class="btn" onclick="showPage('day2')">Read Full Chronicle →</button>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #dbeafe, white); border-left: 5px solid #2563eb; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <div style="display: inline-block; background: #2563eb; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 3</div>
+                            <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">What Experience Cannot Teach</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 32px; font-weight: bold; color: #2563eb;">$380K</div>
+                            <div style="font-size: 14px; color: #666;">Incident Cost</div>
+                        </div>
+                    </div>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        James: 15 years operating forklifts. Perfect record. Clicked "Complete" on training without watching. 3 minutes, 22 seconds he never saw changed everything.
+                    </p>
+                    <p style="color: #2563eb; font-weight: 600; margin-bottom: 20px;">
+                        73% of workplace accidents involve experienced workers who skip knowledge refreshers.
+                    </p>
+                    <button class="btn" onclick="showPage('day3')">Read Full Chronicle →</button>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #e0f2fe, white); border-left: 5px solid #0284c7; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: inline-block; background: #0284c7; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 4</div>
+                    <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">Minus 42 Degrees</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        Fort McMurray oil sands. Robert lost three fingers to frostbite. The lawsuit cost $1.8M.
+                    </p>
+                    <p style="color: #999; font-size: 14px; font-style: italic;">Full chronicle coming soon</p>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #fce7f3, white); border-left: 5px solid #ec4899; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: inline-block; background: #ec4899; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 5</div>
+                    <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">The Joke That Wasn't</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        Six months of "harmless" jokes. Human rights tribunal: $125K. Real cost: $2.3M and their best engineer.
+                    </p>
+                    <p style="color: #999; font-size: 14px; font-style: italic;">Full chronicle coming soon</p>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #f3f4f6, white); border-left: 5px solid #6b7280; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: inline-block; background: #6b7280; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 6</div>
+                    <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">The 19-Year-Old Who Didn't Come Home</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        Heat exhaustion on a construction site. Miguel's first day became his last. $2.1M in damages.
+                    </p>
+                    <p style="color: #999; font-size: 14px; font-style: italic;">Full chronicle coming soon</p>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(to right, #ede9fe, white); border-left: 5px solid #8b5cf6; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display: inline-block; background: #8b5cf6; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 15px;">DAY 7</div>
+                    <h3 style="font-size: 28px; margin-bottom: 10px; color: #1a1a1a;">The Silent Epidemic</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                        Workplace mental health crisis. The hidden costs of ignoring the warning signs.
+                    </p>
+                    <p style="color: #999; font-size: 14px; font-style: italic;">Full chronicle coming soon</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px; text-align: center; padding: 60px; background: #f8f8f8; border-radius: 15px;">
+                <h2 style="font-size: 36px; margin-bottom: 20px;">These Stories Don't Have to Repeat</h2>
+                <p style="font-size: 18px; color: #666; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Every tragedy in The Chronicles is preventable with proper training. Join the movement to make training abundant.
+                </p>
+                <button class="btn" onclick="showPage('beta')">Prevent This in Your Organization</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRICING PAGE -->
+    <div id="pricing" class="page">
+        <div style="padding: 80px 20px; text-align: center;">
+            <h1>Simple, Transparent Pricing</h1>
+            <p style="font-size: 20px; color: #666; margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                All plans include Learn, Create, and Connect modules. Beta participants get <strong style="color: #8b0000;">75% off Year 1 + 25% lifetime discount</strong>.
+            </p>
+        </div>
+
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px 80px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <div style="padding: 40px; background: white; border: 2px solid #e0e0e0; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">Starter</h3>
+                    <div style="font-size: 48px; font-weight: bold; color: #8b0000; margin: 20px 0;">$375<span style="font-size: 20px; font-weight: normal; color: #666;">/mo</span></div>
+                    <p style="color: #666; margin-bottom: 30px;">Perfect for small teams</p>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 30px;">
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Up to 50 users
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            All 3 modules
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            BYOLLM support
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Email support
+                        </li>
+                    </ul>
+                    <button class="btn" style="width: 100%;" onclick="showPage('beta')">Get Started</button>
+                </div>
+
+                <div style="padding: 40px; background: linear-gradient(135deg, #8b0000, #4d0000); color: white; border: 3px solid #d4af37; border-radius: 15px; text-align: center; position: relative; transform: scale(1.05);">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #d4af37; color: #1a1a1a; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">MOST POPULAR</div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">Professional</h3>
+                    <div style="font-size: 48px; font-weight: bold; color: #d4af37; margin: 20px 0;">$750<span style="font-size: 20px; font-weight: normal; color: rgba(255,255,255,0.8);">/mo</span></div>
+                    <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">For growing companies</p>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 30px;">
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            Up to 150 users
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            All 3 modules
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            Full BYOLLM integration
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            Priority support
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            Custom branding
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #d4af37; font-weight: bold;">✓</span>
+                            API access
+                        </li>
+                    </ul>
+                    <button class="btn" style="width: 100%; background: #d4af37; color: #1a1a1a;" onclick="showPage('beta')">Get Started</button>
+                </div>
+
+                <div style="padding: 40px; background: white; border: 2px solid #e0e0e0; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">Business</h3>
+                    <div style="font-size: 48px; font-weight: bold; color: #8b0000; margin: 20px 0;">$1,125<span style="font-size: 20px; font-weight: normal; color: #666;">/mo</span></div>
+                    <p style="color: #666; margin-bottom: 30px;">For established organizations</p>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 30px;">
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Up to 500 users
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Unlimited everything
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Multiple LLM models
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Success manager
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            White-label option
+                        </li>
+                    </ul>
+                    <button class="btn" style="width: 100%;" onclick="showPage('beta')">Get Started</button>
+                </div>
+
+                <div style="padding: 40px; background: white; border: 2px solid #e0e0e0; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">Enterprise</h3>
+                    <div style="font-size: 48px; font-weight: bold; color: #8b0000; margin: 20px 0;">Custom</div>
+                    <p style="color: #666; margin-bottom: 30px;">For large enterprises</p>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 30px;">
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            2,000+ users
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Everything in Business
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            On-premise deployment
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            Custom integrations
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #8b0000; font-weight: bold;">✓</span>
+                            24/7 premium support
+                        </li>
+                    </ul>
+                    <button class="btn" style="width: 100%;" onclick="showPage('contact')">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BETA PAGE -->
+    <div id="beta" class="page">
+        <div style="max-width: 800px; margin: 0 auto; padding: 80px 20px;">
+            <h1 style="text-align: center; font-size: 48px; margin-bottom: 20px;">Join Our Beta Program</h1>
+            <p style="font-size: 20px; color: #666; text-align: center; line-height: 1.8; margin-bottom: 40px;">
+                <strong style="color: #8b0000;">23 of 50 spots claimed</strong> | Launching November 2025<br>
+                Beta participants receive: <strong style="color: #d4af37;">75% off Year 1 + lifetime 25% discount</strong>
+            </p>
+
+            <div style="padding: 40px; background: #f8f8f8; border-radius: 15px;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Company Name *</label>
+                    <input type="text" placeholder="Your company" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Your Name *</label>
+                    <input type="text" placeholder="Full name" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Work Email *</label>
+                    <input type="email" placeholder="your@company.com" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Company Size *</label>
+                    <select style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        <option>Select size...</option>
+                        <option>1-50 employees</option>
+                        <option>51-150 employees</option>
+                        <option>151-500 employees</option>
+                        <option>500+ employees</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Industry *</label>
+                    <input type="text" placeholder="e.g., Manufacturing, Healthcare, Tech" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">What are your biggest training challenges? *</label>
+                    <textarea placeholder="Tell us about your current training pain points..." style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; min-height: 120px; resize: vertical;"></textarea>
+                </div>
+                <button class="btn" style="width: 100%; font-size: 18px;" onclick="alert('Thank you! We will contact you within 48 hours. Beta applications close November 30.')">Submit Beta Application</button>
+                <p style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">
+                    Applications close November 30. We'll respond within 48 hours.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 80px 20px;">
+            <h1 style="text-align: center; font-size: 48px; margin-bottom: 40px;">About CopiousLMS</h1>
+            
+            <div style="max-width: 800px; margin: 0 auto; font-size: 18px; line-height: 1.8; color: #333;">
+                <p style="margin-bottom: 30px;">
+                    CopiousLMS exists to make workplace training abundant, not scarce. We believe every workplace tragedy is preventable with proper training.
+                </p>
+
+                <h2 style="font-size: 32px; color: #8b0000; margin: 60px 0 20px;">Our Mission</h2>
+                <p style="margin-bottom: 30px;">
+                    To eliminate workplace tragedies through abundant, accessible, simple training. We're not just building software—we're saving lives and protecting families.
+                </p>
+
+                <h2 style="font-size: 32px; color: #8b0000; margin: 60px 0 20px;">Why BYOLLM?</h2>
+                <p style="margin-bottom: 30px;">
+                    Because your data is yours. Your AI should be too. We're the only platform that lets you bring your own Large Language Model—complete sovereignty, zero lock-in, saving you $500K-$2M in custom development.
+                </p>
+
+                <h2 style="font-size: 32px; color: #8b0000; margin: 60px 0 20px;">The King Framework</h2>
+                <p style="margin-bottom: 30px;">
+                    Built on the King Framework governance system, CopiousLMS operates with 400+ protocols ensuring mission alignment, data privacy, and continuous improvement. Every decision serves the mission: Training. Abundant. Simple.
+                </p>
+
+                <h2 style="font-size: 32px; color: #8b0000; margin: 60px 0 20px;">Based in Regina, Saskatchewan</h2>
+                <p style="margin-bottom: 30px;">
+                    Shema K Solutions Corp. (DBA CopiousLMS) is proudly Canadian, serving companies worldwide with PIPEDA-compliant, WSIB-ready training solutions.
+                </p>
+            </div>
+
+            <div style="margin-top: 80px; text-align: center;">
+                <h2 style="font-size: 36px; margin-bottom: 30px;">Ready to Join the Movement?</h2>
+                <button class="btn" style="padding: 18px 40px; font-size: 20px;" onclick="showPage('beta')">Apply for Beta Access</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div style="max-width: 800px; margin: 0 auto; padding: 80px 20px;">
+            <h1 style="text-align: center; font-size: 48px; margin-bottom: 20px;">Get In Touch</h1>
+            <p style="font-size: 20px; color: #666; text-align: center; margin-bottom: 60px;">
+                Have questions? Want a demo? Let's talk.
+            </p>
+
+            <div style="padding: 40px; background: #f8f8f8; border-radius: 15px;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Name *</label>
+                    <input type="text" placeholder="Your name" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Email *</label>
+                    <input type="email" placeholder="your@email.com" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Company</label>
+                    <input type="text" placeholder="Your company" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Message *</label>
+                    <textarea placeholder="How can we help?" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; min-height: 150px; resize: vertical;"></textarea>
+                </div>
+                <button class="btn" style="width: 100%; font-size: 18px;" onclick="alert('Thank you! We will respond within 24 hours.')">Send Message</button>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center;">
+                <h3 style="margin-bottom: 20px;">Direct Contact</h3>
+                <p style="color: #666; margin: 10px 0;">📧 hello@copiouslms.com</p>
+                <p style="color: #666; margin: 10px 0;">📍 Regina, Saskatchewan, Canada</p>
+                <p style="color: #666; margin: 10px 0;">🏢 Shema K Solutions Corp.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT PAGE -->
+    <div id="product" class="page">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 80px 20px;">
+            <h1 style="text-align: center; font-size: 48px; margin-bottom: 20px;">The Complete Training Platform</h1>
+            <p style="text-align: center; font-size: 20px; color: #666; max-width: 800px; margin: 0 auto 80px; line-height: 1.8;">
+                CopiousLMS brings together everything your organization needs to train, certify, and communicate—all in one powerful platform with BYOLLM technology.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">🤖 BYOLLM Technology</h4>
+                    <p style="color: #666; line-height: 1.6;">Use GPT-4, Claude, Gemini, or your own models. Complete control over your training intelligence and data privacy.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">📱 Mobile-First Design</h4>
+                    <p style="color: #666; line-height: 1.6;">Train anywhere, anytime. Full functionality on every device—desktop, tablet, or mobile.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">🔗 Seamless Integrations</h4>
+                    <p style="color: #666; line-height: 1.6;">Connect with Slack, Teams, Google Workspace, and your existing HR systems.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">📊 Real-Time Analytics</h4>
+                    <p style="color: #666; line-height: 1.6;">Track completion rates, engagement metrics, and training ROI with powerful dashboards.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">🔒 Enterprise Security</h4>
+                    <p style="color: #666; line-height: 1.6;">SOC 2 Type II certified. GDPR and PIPEDA compliant. Your data stays secure and private.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">⚡ Lightning Fast</h4>
+                    <p style="color: #666; line-height: 1.6;">Built for scale. Handle thousands of concurrent users without breaking a sweat.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px; text-align: center;">
+                <h2 style="font-size: 36px; margin-bottom: 30px;">Ready to See It in Action?</h2>
+                <button class="btn" style="padding: 18px 40px; font-size: 20px;" onclick="showPage('beta')">Request a Demo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAY 1 CHRONICLE PAGE -->
+    <div id="day1" class="page">
+        <div style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+            <button onclick="showPage('chronicles')" style="background: none; border: none; color: #8b0000; font-size: 16px; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+                ← Back to Chronicles
+            </button>
+            
+            <div style="background: linear-gradient(to bottom, #f4e9d8, #ebe0c8); border: 3px solid #8b7355; border-radius: 15px; padding: 60px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <div style="display: inline-block; background: #8b0000; color: #d4af37; padding: 8px 20px; border-radius: 20px; font-weight: bold; margin-bottom: 20px;">DAY 1</div>
+                    <h1 style="font-size: 42px; color: #3d3424; margin-bottom: 20px;">The First Hour</h1>
+                    <p style="color: #8b0000; font-style: italic; font-size: 20px;">When orientation is considered optional</p>
+                </div>
+
+                <div style="color: #3d3424; font-size: 18px; line-height: 1.8;">
+                    <p style="margin-bottom: 20px;"><strong>David Chen</strong> arrived at the Edmonton warehouse at 6:00 AM sharp. First day. Fresh start. Ready to work.</p>
+                    
+                    <p style="margin-bottom: 20px;">The supervisor was running late. "Just start moving those pallets," another worker said, pointing to the loading dock. "We're behind schedule."</p>
+                    
+                    <p style="margin-bottom: 20px;">No one mentioned the dock plate. The 4-inch gap between the truck and the platform. The gap that experienced workers stepped over automatically. The gap that killed two people in Alberta warehouses last year.</p>
+                    
+                    <p style="margin-bottom: 20px;">David's right foot went through at 6:47 AM. The 800-pound pallet jack followed. His ankle shattered in four places. His screams echoed through the warehouse.</p>
+                    
+                    <div style="background: rgba(139,0,0,0.1); border-left: 5px solid #8b0000; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                        <h3 style="font-size: 24px; margin-bottom: 15px; color: #8b0000;">The First Hour Statistics:</h3>
+                        <p style="margin-bottom: 15px;"><strong>40% of workplace accidents occur in the worker's first year</strong></p>
+                        <p style="margin-bottom: 15px;"><strong>25% happen in the first 30 days</strong></p>
+                        <p style="margin-bottom: 15px;"><strong>8% occur on the very first day</strong></p>
+                        <p style="font-style: italic; font-size: 14px; color: #666;">Source: Canadian Centre for Occupational Health and Safety (CCOHS), 2024</p>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px;">David now walks with a permanent limp. He'll never run with his kids again. The warehouse operates the same way, waiting for the next David.</p>
+                    
+                    <div style="background: rgba(139,0,0,0.1); border-left: 5px solid #8b0000; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                        <h3 style="font-size: 24px; margin-bottom: 15px; color: #8b0000;">The Cost:</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">• Medical & Rehabilitation: $450,000</li>
+                            <li style="margin-bottom: 10px;">• WCB Premiums Increase: $380,000 (over 3 years)</li>
+                            <li style="margin-bottom: 10px;">• Legal Settlement: $1.2 Million</li>
+                            <li style="margin-bottom: 10px;">• WorkSafeBC Penalties: $275,000</li>
+                            <li style="margin-bottom: 10px;">• Operational Disruption: $125,000</li>
+                            <li style="margin-bottom: 10px;">• New Safety Equipment (mandated): $95,000</li>
+                            <li style="margin-bottom: 10px;">• Reputation Damage: $675,000 in lost contracts</li>
+                            <li style="margin-bottom: 10px; font-size: 20px; font-weight: bold; color: #8b0000;">Total: $3.2 Million</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(212,175,55,0.2); border: 2px solid #d4af37; padding: 25px; margin: 30px 0; border-radius: 10px;">
+                        <h3 style="font-size: 22px; margin-bottom: 15px; color: #8b0000;">What 2 Hours of Orientation Would Have Covered:</h3>
+                        <ul style="margin-top: 15px;">
+                            <li style="margin-bottom: 12px;">✓ Warehouse hazard walkthrough</li>
+                            <li style="margin-bottom: 12px;">✓ Dock plate safety procedures</li>
+                            <li style="margin-bottom: 12px;">✓ Proper lifting techniques</li>
+                            <li style="margin-bottom: 12px;">✓ Emergency response locations</li>
+                            <li style="margin-bottom: 12px;">✓ Right to refuse unsafe work (Canadian law)</li>
+                        </ul>
+                        <p style="margin-top: 20px; font-weight: bold; color: #8b0000; font-size: 18px;">Orientation Cost: $47 (2 hours wages)<br>Cost of Skipping It: $3.2 Million</p>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-size: 22px; font-weight: bold; color: #8b0000; text-align: center;">Every new worker who starts without orientation is a $3.2 million lottery ticket. Eventually, you lose.</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #8b7355;">
+                    <p style="font-style: italic; color: #666; margin-bottom: 20px;">Part of The Copious Community Chronicles™</p>
+                    <button class="btn" onclick="showPage('beta')">Never Let This Happen</button>
+                    <button class="btn btn-secondary" onclick="showPage('chronicles')" style="margin-left: 10px;">Back to Chronicles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAY 2 CHRONICLE PAGE -->
+    <div id="day2" class="page">
+        <div style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+            <button onclick="showPage('chronicles')" style="background: none; border: none; color: #8b0000; font-size: 16px; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+                ← Back to Chronicles
+            </button>
+            
+            <div style="background: linear-gradient(to bottom, #f4e9d8, #ebe0c8); border: 3px solid #8b7355; border-radius: 15px; padding: 60px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <div style="display: inline-block; background: #8b0000; color: #d4af37; padding: 8px 20px; border-radius: 20px; font-weight: bold; margin-bottom: 20px;">DAY 2</div>
+                    <h1 style="font-size: 42px; color: #3d3424; margin-bottom: 20px;">The $847K Reorganization</h1>
+                    <p style="color: #8b0000; font-style: italic; font-size: 20px;">When corporate restructuring meets zero change management training</p>
+                </div>
+
+                <div style="color: #3d3424; font-size: 18px; line-height: 1.8;">
+                    <p style="margin-bottom: 20px;"><strong>Jennifer Martinez</strong> opened the company-wide email at 8:47 AM on a Monday.</p>
+                    
+                    <p style="margin-bottom: 20px;"><em>Subject: Exciting Organizational Updates</em></p>
+                    
+                    <p style="margin-bottom: 20px;">After 12 years as Senior Account Manager, Jennifer learned her role was being "realigned." Her team of six would now report to someone three levels below her previous position. No one had called her. No one had prepared her.</p>
+                    
+                    <p style="margin-bottom: 20px;">The email landed in 347 inboxes simultaneously.</p>
+                    
+                    <div style="background: rgba(139,0,0,0.1); border-left: 5px solid #8b0000; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                        <h3 style="font-size: 24px; margin-bottom: 15px; color: #8b0000;">The Damage (First 90 Days):</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">✗ 34% turnover rate (118 employees)</li>
+                            <li style="margin-bottom: 10px;">✗ $487,000 in recruitment costs</li>
+                            <li style="margin-bottom: 10px;">✗ $285,000 in lost productivity</li>
+                            <li style="margin-bottom: 10px;">✗ $75,000 in severance packages</li>
+                            <li style="margin-bottom: 10px; font-size: 20px; font-weight: bold; color: #8b0000;">Total: $847,000</li>
+                        </ul>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px;">Jennifer's two-sentence resignation arrived that afternoon:</p>
+                    
+                    <p style="background: #fff; padding: 20px; border-left: 3px solid #d4af37; margin: 20px 0; font-style: italic;">"I've given this company 12 years of excellent work. 12 minutes of confusion was enough to end it."</p>
+                    
+                    <p style="margin-bottom: 20px;">The CEO assumed experienced employees would "understand business realities." The board disagreed after reviewing the costs.</p>
+                    
+                    <div style="background: rgba(212,175,55,0.2); border: 2px solid #d4af37; padding: 25px; margin: 30px 0; border-radius: 10px;">
+                        <h3 style="font-size: 22px; margin-bottom: 15px; color: #8b0000;">What 90 Minutes of Change Management Training Would Have Covered:</h3>
+                        <ul style="margin-top: 15px;">
+                            <li style="margin-bottom: 12px;">✓ Manager notification protocol (24 hours before announcement)</li>
+                            <li style="margin-bottom: 12px;">✓ Individual conversations for affected employees</li>
+                            <li style="margin-bottom: 12px;">✓ Transition support and timeline clarity</li>
+                            <li style="margin-bottom: 12px;">✓ Q&A sessions within 48 hours</li>
+                        </ul>
+                        <p style="margin-top: 20px; font-weight: bold; color: #8b0000; font-size: 18px;">Training Cost: $4,200 | Loss Without It: $847,000</p>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-size: 22px; font-weight: bold; color: #8b0000; text-align: center;">The pattern repeats because companies treat change management as optional until the invoice arrives.</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #8b7355;">
+                    <p style="font-style: italic; color: #666; margin-bottom: 20px;">Part of The Copious Community Chronicles™</p>
+                    <button class="btn" onclick="showPage('beta')">Prevent This in Your Organization</button>
+                    <button class="btn btn-secondary" onclick="showPage('chronicles')" style="margin-left: 10px;">Back to Chronicles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAY 3 CHRONICLE PAGE -->
+    <div id="day3" class="page">
+        <div style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+            <button onclick="showPage('chronicles')" style="background: none; border: none; color: #8b0000; font-size: 16px; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+                ← Back to Chronicles
+            </button>
+            
+            <div style="background: linear-gradient(to bottom, #f4e9d8, #ebe0c8); border: 3px solid #8b7355; border-radius: 15px; padding: 60px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <div style="display: inline-block; background: #8b0000; color: #d4af37; padding: 8px 20px; border-radius: 20px; font-weight: bold; margin-bottom: 20px;">DAY 3</div>
+                    <h1 style="font-size: 42px; color: #3d3424; margin-bottom: 20px;">What Experience Cannot Teach</h1>
+                    <p style="color: #8b0000; font-style: italic; font-size: 20px;">The $380K forklift accident</p>
+                </div>
+
+                <div style="color: #3d3424; font-size: 18px; line-height: 1.8;">
+                    <p style="margin-bottom: 20px;"><strong>James</strong> had been operating forklifts for 15 years. Perfect safety record. Zero incidents. Employee of the month three times.</p>
+                    
+                    <p style="margin-bottom: 20px;">When the annual refresher training email arrived, James clicked "Complete" without watching. He'd done this job since he was 23. What could a training video teach him?</p>
+                    
+                    <p style="margin-bottom: 20px;">Three minutes and 22 seconds. That's how long the critical update took to explain. The facility had expanded, adding new support beams. New clearance requirements: 18 inches minimum near beams D-7 through D-14.</p>
+                    
+                    <p style="margin-bottom: 20px;">James never watched it.</p>
+                    
+                    <div style="background: rgba(139,0,0,0.1); border-left: 5px solid #8b0000; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                        <h3 style="font-size: 24px; margin-bottom: 15px; color: #8b0000;">The Accident:</h3>
+                        <p style="margin-bottom: 15px;">On September 14th, James made his usual route through the warehouse. The forklift struck beam D-9. The impact knocked 24-year-old <strong>Miguel</strong>, an inventory clerk, from a ladder.</p>
+                        <p style="margin-bottom: 15px;">Miguel survived. Three months of recovery. Permanent mobility issues. Psychological trauma.</p>
+                    </div>
+                    
+                    <div style="background: rgba(139,0,0,0.1); border-left: 5px solid #8b0000; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                        <h3 style="font-size: 24px; margin-bottom: 15px; color: #8b0000;">The Cost:</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">• Worker's Compensation: $185,000</li>
+                            <li style="margin-bottom: 10px;">• OSHA Penalties: $48,000</li>
+                            <li style="margin-bottom: 10px;">• Legal Settlement: $122,000</li>
+                            <li style="margin-bottom: 10px;">• Lost Productivity (3 months): $25,000</li>
+                            <li style="margin-bottom: 10px; font-size: 20px; font-weight: bold; color: #8b0000;">Total: $380,000</li>
+                        </ul>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px;">During the investigation, James's training record showed "Completed." The system logged his click. It didn't track whether he watched.</p>
+                    
+                    <div style="background: rgba(212,175,55,0.2); border: 2px solid #d4af37; padding: 25px; margin: 30px 0; border-radius: 10px;">
+                        <h3 style="font-size: 22px; margin-bottom: 15px; color: #8b0000;">The Statistics:</h3>
+                        <p style="margin-bottom: 15px;"><strong>73% of workplace accidents involve experienced workers who skip knowledge refreshers.</strong></p>
+                        <p style="margin-bottom: 15px;">Experience tells you how to do the job you learned. Training tells you what changed since then.</p>
+                        <p style="margin-top: 20px; font-weight: bold; color: #8b0000; font-size: 18px;">Time to Learn the Update: 3 minutes, 22 seconds<br>Cost of Not Learning: $380,000</p>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-size: 22px; font-weight: bold; color: #8b0000; text-align: center;">The most experienced workers are at the highest risk—precisely because they believe they don't need training.</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #8b7355;">
+                    <p style="font-style: italic; color: #666; margin-bottom: 20px;">Part of The Copious Community Chronicles™</p>
+                    <button class="btn" onclick="showPage('beta')">Make Training Impossible to Skip</button>
+                    <button class="btn btn-secondary" onclick="showPage('chronicles')" style="margin-left: 10px;">Back to Chronicles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo-section">
+            <div class="footer-logo">
+                <div class="footer-logo-square">
+                    <div class="footer-logo-dot center"></div>
+                    <div class="footer-logo-dot top"></div>
+                    <div class="footer-logo-dot bottom-left"></div>
+                    <div class="footer-logo-dot bottom-right"></div>
+                </div>
+            </div>
+            <div class="footer-brand">CopiousLMS</div>
+        </div>
+        <div class="footer-tagline">Training. Abundant. Simple.</div>
+        <p class="footer-info">© 2025 Shema K Solutions Corp. All rights reserved.</p>
+        <p class="footer-info" style="margin-top: 5px;">Regina, Saskatchewan, Canada 🍁</p>
+        <p class="footer-info" style="margin-top: 10px; font-size: 12px;">
+            King Framework Powered | BYOLLM Technology | PIPEDA Compliant
+        </p>
+        <div class="footer-links">
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('product')">Product</a>
+            <a onclick="showPage('pricing')">Pricing</a>
+            <a onclick="showPage('chronicles')">Chronicles</a>
+            <a onclick="showPage('about')">About</a>
+            <a onclick="showPage('beta')">Beta Program</a>
+            <a onclick="showPage('contact')">Contact</a>
+        </div>
+        <p class="footer-info" style="margin-top: 30px; font-size: 11px; color: #666;">
+            This content is proprietary and confidential. The Copious Community Chronicles™ is a trademark of Shema K Solutions Corp.
+        </p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Ensure home page is active by default
+            const homePage = document.getElementById('home');
+            if (homePage && !document.querySelector('.page.active')) {
+                homePage.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>🤖 BYOLLM Technology</h4>
+                    <p style="color: #666; line-height: 1.6;">Use GPT-4, Claude, Gemini, or your own models. Complete control over your training intelligence and data privacy.</p>
+                </div>
+                <div style="padding: 30px; background: #f8f8f8; border-radius: 10px;">
+                    <h4 style="font-size: 22px; margin-bottom: 10px; color: #8b0000;">
